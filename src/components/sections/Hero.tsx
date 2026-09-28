@@ -3,13 +3,20 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Plane, Camera, Send } from 'lucide-react';
 import { useRef } from 'react';
 
+interface HeroMedia {
+  title?: string;
+  videoUrl?: string;
+  thumbnailUrl?: string;
+}
+
 interface HeroProps {
   variant?: string;
   headline?: string;
   subheadline?: string;
+  heroMedia?: HeroMedia[];
 }
 
-export function Hero({ variant, headline, subheadline }: HeroProps) {
+export function Hero({ variant, headline, subheadline, heroMedia = [] }: HeroProps) {
   const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -24,6 +31,9 @@ export function Hero({ variant, headline, subheadline }: HeroProps) {
 
   const defaultHeadline = headline || "Dahlia\nRenae";
   const defaultSubheadline = subheadline || "Travel & Lifestyle Creator\nUGC - Social Media - Travel Content";
+
+  const media1 = heroMedia[0];
+  const media2 = heroMedia[1];
 
   return (
     <section ref={containerRef} className="relative min-h-[95vh] w-full flex flex-col items-center justify-center overflow-hidden bg-background">
@@ -105,30 +115,65 @@ export function Hero({ variant, headline, subheadline }: HeroProps) {
       {/* Floating Polaroids (Interactive Video Placeholders) */}
       {variant === 'floatingVideos' && (
         <>
-          <motion.div 
-            style={{ y: y1, rotate: rotate1 }}
-            className="absolute top-[10%] -left-10 md:left-[10%] w-[200px] md:w-[280px] h-[300px] md:h-[400px] bg-white border border-border shadow-2xl p-4 hidden sm:flex flex-col gap-2 rounded-xl"
-          >
-            <div className="w-full h-full bg-light-gray rounded-md flex items-center justify-center overflow-hidden relative">
-              <div className="absolute inset-0 bg-accent/10" />
-              <span className="font-sans text-xs uppercase tracking-widest text-text-muted">Travel.mp4</span>
-            </div>
-            <div className="h-8 flex items-center justify-center font-display text-lg text-foreground italic">
-              Bora Bora
-            </div>
-          </motion.div>
+          {media1 ? (
+            <motion.div 
+              style={{ y: y1, rotate: rotate1 }}
+              className="absolute top-[10%] -left-10 md:left-[10%] w-[200px] md:w-[280px] h-[300px] md:h-[400px] bg-white border border-border shadow-2xl p-4 hidden sm:flex flex-col gap-2 rounded-xl"
+            >
+              <div className="w-full h-full bg-light-gray rounded-md flex items-center justify-center overflow-hidden relative">
+                {media1.videoUrl ? (
+                  <video src={media1.videoUrl} autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover" />
+                ) : media1.thumbnailUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={media1.thumbnailUrl} alt={media1.title} className="absolute inset-0 w-full h-full object-cover" />
+                ) : (
+                  <span className="font-sans text-xs uppercase tracking-widest text-text-muted">No Media</span>
+                )}
+              </div>
+              <div className="h-8 flex items-center justify-center font-display text-lg text-foreground italic whitespace-nowrap overflow-hidden text-ellipsis px-2">
+                {media1.title || "Featured"}
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div 
+              style={{ y: y1, rotate: rotate1 }}
+              className="absolute top-[10%] -left-10 md:left-[10%] w-[200px] md:w-[280px] h-[300px] md:h-[400px] bg-white border border-dashed border-border shadow-2xl p-4 hidden sm:flex flex-col gap-2 rounded-xl"
+            >
+              <div className="w-full h-full bg-surface rounded-md flex flex-col items-center justify-center overflow-hidden relative opacity-50">
+                <span className="font-sans text-xs uppercase tracking-widest text-text-muted text-center px-4">Hero Media 1<br/>Not Configured</span>
+              </div>
+            </motion.div>
+          )}
           
-          <motion.div 
-            style={{ y: y2, rotate: rotate2 }}
-            className="absolute bottom-[5%] -right-10 md:right-[5%] w-[220px] md:w-[320px] h-[320px] md:h-[460px] bg-white border border-border shadow-2xl p-4 hidden sm:flex flex-col gap-2 rounded-xl"
-          >
-            <div className="w-full h-full bg-accent-soft/20 rounded-md flex items-center justify-center overflow-hidden relative">
-               <span className="font-sans text-xs uppercase tracking-widest text-text-muted">Lifestyle.mp4</span>
-            </div>
-            <div className="h-8 flex items-center justify-center font-display text-lg text-foreground italic">
-              Morning Routine
-            </div>
-          </motion.div>
+          {media2 ? (
+            <motion.div 
+              style={{ y: y2, rotate: rotate2 }}
+              className="absolute bottom-[5%] -right-10 md:right-[5%] w-[220px] md:w-[320px] h-[320px] md:h-[460px] bg-white border border-border shadow-2xl p-4 hidden sm:flex flex-col gap-2 rounded-xl"
+            >
+              <div className="w-full h-full bg-accent-soft/20 rounded-md flex items-center justify-center overflow-hidden relative">
+                {media2.videoUrl ? (
+                  <video src={media2.videoUrl} autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover" />
+                ) : media2.thumbnailUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={media2.thumbnailUrl} alt={media2.title} className="absolute inset-0 w-full h-full object-cover" />
+                ) : (
+                  <span className="font-sans text-xs uppercase tracking-widest text-text-muted">No Media</span>
+                )}
+              </div>
+              <div className="h-8 flex items-center justify-center font-display text-lg text-foreground italic whitespace-nowrap overflow-hidden text-ellipsis px-2">
+                {media2.title || "Featured"}
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div 
+              style={{ y: y2, rotate: rotate2 }}
+              className="absolute bottom-[5%] -right-10 md:right-[5%] w-[220px] md:w-[320px] h-[320px] md:h-[460px] bg-white border border-dashed border-border shadow-2xl p-4 hidden sm:flex flex-col gap-2 rounded-xl"
+            >
+              <div className="w-full h-full bg-surface rounded-md flex flex-col items-center justify-center overflow-hidden relative opacity-50">
+                <span className="font-sans text-xs uppercase tracking-widest text-text-muted text-center px-4">Hero Media 2<br/>Not Configured</span>
+              </div>
+            </motion.div>
+          )}
         </>
       )}
     </section>

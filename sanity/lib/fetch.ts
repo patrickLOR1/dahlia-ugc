@@ -21,9 +21,10 @@ export async function sanityFetch<QueryResponse>({
     ...(isDraftMode && {
       token: process.env.SANITY_API_READ_TOKEN,
       perspective: 'previewDrafts',
+      stega: true,
     }),
     next: {
-      ...(isDraftMode && { revalidate: 0 }),
+      revalidate: isDraftMode ? 0 : 60,
       tags,
     },
   })

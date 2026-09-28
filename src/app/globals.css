@@ -11,27 +11,65 @@
   --color-light-gray: #EAE5DD;
   --color-sage: #8F9779;
   
-  --color-background: var(--color-cream);
-  --color-surface: var(--color-warm-white);
-  --color-foreground: var(--color-espresso);
-  --color-text-muted: var(--color-warm-gray);
-  --color-accent: var(--color-caramel);
-  --color-accent-soft: var(--color-mustard);
-  --color-highlight: var(--color-blush);
-  --color-border: var(--color-light-gray);
+  --color-background: var(--bg-color);
+  --color-surface: var(--surface-color);
+  --color-foreground: var(--fg-color);
+  --color-text-muted: var(--text-muted-color);
+  --color-accent: var(--accent-color);
+  --color-accent-soft: var(--accent-soft-color);
+  --color-highlight: var(--highlight-color);
+  --color-border: var(--border-color);
   
-  --font-display: var(--font-cormorant);
+  --font-display: var(--display-font);
   --font-sans: var(--font-montserrat);
 }
 
 @layer base {
+  :root {
+    /* Default (Editorial) */
+    --bg-color: var(--color-cream);
+    --surface-color: var(--color-warm-white);
+    --fg-color: var(--color-espresso);
+    --text-muted-color: var(--color-warm-gray);
+    --accent-color: var(--color-caramel);
+    --accent-soft-color: var(--color-mustard);
+    --highlight-color: var(--color-blush);
+    --border-color: var(--color-light-gray);
+    --display-font: var(--font-cormorant);
+  }
+
+  [data-theme="minimal"] {
+    --bg-color: #FFFFFF;
+    --surface-color: #FAFAFA;
+    --fg-color: #111111;
+    --text-muted-color: #777777;
+    --accent-color: #000000;
+    --accent-soft-color: #DDDDDD;
+    --highlight-color: #EEEEEE;
+    --border-color: #E5E5E5;
+    --display-font: var(--font-montserrat);
+  }
+
+  [data-theme="scrapbook"] {
+    --bg-color: #FDFBF7;
+    --surface-color: #F4EBE1;
+    --fg-color: #3D2D1F;
+    --text-muted-color: #8A7C6B;
+    --accent-color: #D25C4D;
+    --accent-soft-color: #E8B4A8;
+    --highlight-color: #FFF5D1;
+    --border-color: #DECCA9;
+    --display-font: var(--font-cormorant);
+  }
+
   body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
+    background-color: var(--bg-color);
+    color: var(--fg-color);
     font-family: var(--font-sans);
+    transition: background-color 0.5s ease, color 0.5s ease;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-display);
+    font-family: var(--display-font);
   }
 }

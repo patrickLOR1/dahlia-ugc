@@ -29,6 +29,22 @@ export const homepageType = defineType({
       type: 'text',
     }),
     defineField({
+      name: 'heroMedia',
+      title: 'Hero Media Items',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            { name: 'title', type: 'string', title: 'Title' },
+            { name: 'video', type: 'file', title: 'Video File', options: { accept: 'video/*' } },
+            { name: 'thumbnail', type: 'image', title: 'Thumbnail Poster', options: { hotspot: true } },
+          ]
+        }
+      ],
+      description: 'Media used in the hero section (e.g., floating videos or portraits)',
+    }),
+    defineField({
       name: 'showPortfolio',
       title: 'Show Portfolio Section',
       type: 'boolean',

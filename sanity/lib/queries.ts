@@ -3,6 +3,11 @@ import { groq } from 'next-sanity'
 export const homepageQuery = groq`
   *[_type == "homepage"][0] {
     ...,
+    heroMedia[]{
+      title,
+      "videoUrl": video.asset->url,
+      "thumbnailUrl": thumbnail.asset->url
+    }
   }
 `
 
@@ -13,7 +18,7 @@ export const siteSettingsQuery = groq`
 `
 
 export const projectsQuery = groq`
-  *[_type == "project"] | order(order asc) {
+  *[_type == "project"] | order(orderRank) {
     _id,
     title,
     brand,

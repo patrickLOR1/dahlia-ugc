@@ -1,5 +1,6 @@
 import { Hero } from "@/components/sections/Hero";
 import { DraggableReel } from "@/components/portfolio/DraggableReel";
+import { EditorialGrid } from "@/components/portfolio/EditorialGrid";
 import { Services } from "@/components/sections/Services";
 import { Contact } from "@/components/sections/Contact";
 import { sanityFetch } from "../../sanity/lib/fetch";
@@ -67,7 +68,9 @@ export default async function Home() {
   const heroVariant = homepage?.heroVariant || 'floatingVideos';
   const heroHeadline = homepage?.heroHeadline || 'Dahlia\nRenae';
   const heroSubheadline = homepage?.heroSubheadline || 'Travel & Lifestyle Creator\nUGC - Social Media - Travel Content';
+  const heroMedia = homepage?.heroMedia || [];
   const showPortfolio = homepage?.showPortfolio !== false;
+  const portfolioVariant = homepage?.portfolioVariant || 'horizontalReel';
   
   const theme = siteSettings?.theme || 'editorial';
   const animation = siteSettings?.animationIntensity || 'balanced';
@@ -78,10 +81,15 @@ export default async function Home() {
         variant={heroVariant} 
         headline={heroHeadline} 
         subheadline={heroSubheadline} 
+        heroMedia={heroMedia}
       />
       
       {showPortfolio && (
-        <DraggableReel projects={projects || []} />
+        portfolioVariant === 'editorialGrid' ? (
+          <EditorialGrid projects={projects || []} />
+        ) : (
+          <DraggableReel projects={projects || []} />
+        )
       )}
 
       <Services data={services} />

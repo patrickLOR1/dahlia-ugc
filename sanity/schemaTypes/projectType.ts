@@ -1,4 +1,5 @@
 import { defineField, defineType } from 'sanity'
+import { orderRankField } from '@sanity/orderable-document-list'
 
 export const projectType = defineType({
   name: 'project',
@@ -64,12 +65,7 @@ export const projectType = defineType({
       description: 'Highlight this project on the homepage',
       initialValue: false,
     }),
-    defineField({
-      name: 'order',
-      title: 'Sort Order',
-      type: 'number',
-      hidden: true,
-    }),
+    orderRankField({ type: 'project' }),
   ],
   preview: {
     select: {
