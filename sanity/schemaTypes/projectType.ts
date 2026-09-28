@@ -40,16 +40,22 @@ export const projectType = defineType({
       },
     }),
     defineField({
-      name: 'thumbnailUrl',
-      title: 'Thumbnail Image URL (Temporary)',
-      type: 'url',
-      description: 'Temporary URL for video thumbnail poster',
+      name: 'thumbnail',
+      title: 'Thumbnail Image',
+      type: 'image',
+      description: 'Upload a thumbnail poster for the video',
+      options: {
+        hotspot: true,
+      },
     }),
     defineField({
-      name: 'videoUrl',
-      title: 'Video File URL (Temporary)',
-      type: 'url',
-      description: 'Temporary URL for the actual video file',
+      name: 'video',
+      title: 'Video File',
+      type: 'file',
+      description: 'Upload the actual video file',
+      options: {
+        accept: 'video/*',
+      },
     }),
     defineField({
       name: 'featured',

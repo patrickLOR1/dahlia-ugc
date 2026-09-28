@@ -17,17 +17,23 @@ export const metadata: Metadata = {
   description: "Creative UGC Portfolio",
 };
 
-export default function RootLayout({
+import { draftMode } from 'next/headers';
+import { VisualEditing } from 'next-sanity';
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { isEnabled: isDraftMode } = await draftMode();
+
   return (
     <html lang="en">
       <body
         className={`${cormorant.variable} ${montserrat.variable} antialiased`}
       >
         {children}
+        {isDraftMode && <VisualEditing />}
       </body>
     </html>
   );

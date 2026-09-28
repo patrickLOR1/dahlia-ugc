@@ -18,8 +18,20 @@ export const projectsQuery = groq`
     title,
     brand,
     category,
-    thumbnailUrl,
-    videoUrl,
+    "thumbnailUrl": thumbnail.asset->url,
+    "videoUrl": video.asset->url,
     featured
+  }
+`
+
+export const servicesQuery = groq`
+  *[_type == "servicesSection"][0] {
+    ...,
+  }
+`
+
+export const contactQuery = groq`
+  *[_type == "contactSection"][0] {
+    ...,
   }
 `

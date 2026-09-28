@@ -17,8 +17,8 @@ export async function POST(request: Request) {
 
     // TODO: Connect to an actual email provider like Resend or SendGrid here.
     // Until the email provider is configured, return an explicit unavailable response.
-    console.log(`[Contact Form] Received message from ${name} (${email}): ${message}`);
-
+    // TODO: Implement rate limiting (e.g. using Upstash Redis or Vercel KV) and spam protection (e.g. Turnstile/reCAPTCHA)
+    
     return NextResponse.json(
       { error: 'Email delivery is currently unavailable. The provider has not been configured yet.' },
       { status: 503 }

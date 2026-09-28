@@ -103,30 +103,34 @@ export function Hero({ variant, headline, subheadline }: HeroProps) {
       </motion.div>
 
       {/* Floating Polaroids (Interactive Video Placeholders) */}
-      <motion.div 
-        style={{ y: y1, rotate: rotate1 }}
-        className="absolute top-[10%] -left-10 md:left-[10%] w-[200px] md:w-[280px] h-[300px] md:h-[400px] bg-white border border-border shadow-2xl p-4 hidden sm:flex flex-col gap-2 rounded-xl"
-      >
-        <div className="w-full h-full bg-light-gray rounded-md flex items-center justify-center overflow-hidden relative">
-          <div className="absolute inset-0 bg-accent/10" />
-          <span className="font-sans text-xs uppercase tracking-widest text-text-muted">Travel.mp4</span>
-        </div>
-        <div className="h-8 flex items-center justify-center font-display text-lg text-foreground italic">
-          Bora Bora
-        </div>
-      </motion.div>
-      
-      <motion.div 
-        style={{ y: y2, rotate: rotate2 }}
-        className="absolute bottom-[5%] -right-10 md:right-[5%] w-[220px] md:w-[320px] h-[320px] md:h-[460px] bg-white border border-border shadow-2xl p-4 hidden sm:flex flex-col gap-2 rounded-xl"
-      >
-        <div className="w-full h-full bg-accent-soft/20 rounded-md flex items-center justify-center overflow-hidden relative">
-           <span className="font-sans text-xs uppercase tracking-widest text-text-muted">Lifestyle.mp4</span>
-        </div>
-        <div className="h-8 flex items-center justify-center font-display text-lg text-foreground italic">
-          Morning Routine
-        </div>
-      </motion.div>
+      {variant === 'floatingVideos' && (
+        <>
+          <motion.div 
+            style={{ y: y1, rotate: rotate1 }}
+            className="absolute top-[10%] -left-10 md:left-[10%] w-[200px] md:w-[280px] h-[300px] md:h-[400px] bg-white border border-border shadow-2xl p-4 hidden sm:flex flex-col gap-2 rounded-xl"
+          >
+            <div className="w-full h-full bg-light-gray rounded-md flex items-center justify-center overflow-hidden relative">
+              <div className="absolute inset-0 bg-accent/10" />
+              <span className="font-sans text-xs uppercase tracking-widest text-text-muted">Travel.mp4</span>
+            </div>
+            <div className="h-8 flex items-center justify-center font-display text-lg text-foreground italic">
+              Bora Bora
+            </div>
+          </motion.div>
+          
+          <motion.div 
+            style={{ y: y2, rotate: rotate2 }}
+            className="absolute bottom-[5%] -right-10 md:right-[5%] w-[220px] md:w-[320px] h-[320px] md:h-[460px] bg-white border border-border shadow-2xl p-4 hidden sm:flex flex-col gap-2 rounded-xl"
+          >
+            <div className="w-full h-full bg-accent-soft/20 rounded-md flex items-center justify-center overflow-hidden relative">
+               <span className="font-sans text-xs uppercase tracking-widest text-text-muted">Lifestyle.mp4</span>
+            </div>
+            <div className="h-8 flex items-center justify-center font-display text-lg text-foreground italic">
+              Morning Routine
+            </div>
+          </motion.div>
+        </>
+      )}
     </section>
   );
 }

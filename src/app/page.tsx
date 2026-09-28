@@ -3,13 +3,14 @@ import { DraggableReel } from "@/components/portfolio/DraggableReel";
 import { Services } from "@/components/sections/Services";
 import { Contact } from "@/components/sections/Contact";
 import { sanityFetch } from "../../sanity/lib/fetch";
-import { homepageQuery, projectsQuery } from "../../sanity/lib/queries";
+import { homepageQuery, projectsQuery, servicesQuery, contactQuery, siteSettingsQuery } from "../../sanity/lib/queries";
 
 export default async function Home() {
   let homepage = null;
   let projects = null;
   let services = null;
   let contact = null;
+  let siteSettings = null;
 
   const useMockData = process.env.NODE_ENV === 'development' && process.env.USE_MOCK_DATA === 'true';
 
@@ -21,9 +22,9 @@ export default async function Home() {
       showPortfolio: true
     };
     projects = [
-      { _id: '1', title: 'Summer in Italy', category: 'Travel' },
-      { _id: '2', title: 'Skincare Routine', category: 'Beauty' },
-      { _id: '3', title: 'NYC Vlog', category: 'Lifestyle' }
+      { _id: '1', title: 'Summer in Italy', category: 'Travel', thumbnailUrl: '/images/placeholder1.jpg' },
+      { _id: '2', title: 'Skincare Routine', category: 'Beauty', thumbnailUrl: '/images/placeholder2.jpg' },
+      { _id: '3', title: 'NYC Vlog', category: 'Lifestyle', thumbnailUrl: '/images/placeholder3.jpg' }
     ];
     services = {
       title: 'What I Do',
@@ -39,15 +40,28 @@ export default async function Home() {
       email: 'hello@dahliarenae.com',
       formLayout: 'minimal'
     };
+    siteSettings = {
+      theme: 'editorial',
+      animationIntensity: 'balanced'
+    };
   } else {
     const data = await Promise.all([
       sanityFetch<unknown>({ query: homepageQuery, tags: ['homepage'] }),
-      sanityFetch<unknown[]>({ query: projectsQuery, tags: ['project'] })
+      sanityFetch<unknown[]>({ query: projectsQuery, tags: ['project'] }),
+      sanityFetch<unknown>({ query: servicesQuery, tags: ['servicesSection'] }),
+      sanityFetch<unknown>({ query: contactQuery, tags: ['contactSection'] }),
+      sanityFetch<unknown>({ query: siteSettingsQuery, tags: ['siteSettings'] })
     ]);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     homepage = data[0] as any;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     projects = data[1] as any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    services = data[2] as any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    contact = data[3] as any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    siteSettings = data[4] as any;
   }
 
   const heroVariant = homepage?.heroVariant || 'floatingVideos';
@@ -55,8 +69,11 @@ export default async function Home() {
   const heroSubheadline = homepage?.heroSubheadline || 'Travel & Lifestyle Creator\nUGC - Social Media - Travel Content';
   const showPortfolio = homepage?.showPortfolio !== false;
   
+  const theme = siteSettings?.theme || 'editorial';
+  const animation = siteSettings?.animationIntensity || 'balanced';
+  
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen" data-theme={theme} data-animation={animation}>
       <Hero 
         variant={heroVariant} 
         headline={heroHeadline} 
