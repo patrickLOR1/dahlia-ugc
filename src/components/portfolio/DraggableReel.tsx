@@ -3,9 +3,17 @@ import { motion } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { VideoCard } from './VideoCard';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+interface Project {
+  _id: string;
+  title: string;
+  brand: string;
+  category: string;
+  thumbnailUrl?: string;
+  videoUrl?: string;
+}
+
 interface DraggableReelProps {
-  projects: any[];
+  projects: Project[];
 }
 
 export function DraggableReel({ projects }: DraggableReelProps) {

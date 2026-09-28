@@ -31,7 +31,7 @@ export function Contact({ data }: { data: any }) {
   };
 
   if (!data) return null;
-  const { title, description, email, formLayout } = data;
+  const { title, description, email } = data;
 
   return (
     <section id="contact" className="w-full py-24 bg-cream">
