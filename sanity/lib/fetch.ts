@@ -18,8 +18,8 @@ export async function sanityFetch<QueryResponse>({
 
   return client.fetch<QueryResponse>(query, params, {
     cache: isDraftMode ? 'no-cache' : 'force-cache',
+    token: process.env.SANITY_API_READ_TOKEN,
     ...(isDraftMode && {
-      token: process.env.SANITY_API_READ_TOKEN,
       perspective: 'previewDrafts',
       stega: true,
     }),
