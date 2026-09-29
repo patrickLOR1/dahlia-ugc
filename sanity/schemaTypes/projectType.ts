@@ -84,7 +84,7 @@ export const projectType = defineType({
       title: '⭐ Featured Project',
       type: 'boolean',
       group: 'details',
-      description: 'Turn this on to highlight this project at the top of your portfolio.',
+      description: 'Highlight this project with a special badge. (Note: Project order is controlled by dragging and dropping in the "My Videos & Projects" list.)',
       initialValue: false,
     }),
     orderRankField({ type: 'project' }),
