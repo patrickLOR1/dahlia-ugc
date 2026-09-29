@@ -10,11 +10,16 @@ export default defineConfig({
   basePath: '/studio',
   projectId,
   dataset,
+  title: 'Dahlia Studio',
   schema,
   plugins: [
-    structureTool({ structure }),
+    structureTool({
+      structure,
+      title: 'Edit Content',
+    }),
     presentationTool({
       resolve,
+      title: 'Preview Website',
       previewUrl: {
         previewMode: {
           enable: '/api/draft-mode/enable',

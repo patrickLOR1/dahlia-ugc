@@ -3,41 +3,63 @@ import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list'
 
 export const structure: StructureResolver = (S, context) =>
   S.list()
-    .title('Content')
+    .title('Dahlia Studio')
     .items([
-      // Our singleton type has a list item with a custom child
+      // --- Primary editing workflows ---
+      orderableDocumentListDeskItem({
+        type: 'project',
+        title: 'My Videos & Projects',
+        icon: () => '📹',
+        S,
+        context,
+      }),
+      S.divider(),
+
+      // --- Page content ---
       S.listItem()
-        .title('Homepage Settings')
+        .title('Edit My Homepage')
         .id('homepage')
+        .icon(() => '🏠')
         .child(
           S.document()
             .schemaType('homepage')
             .documentId('homepage')
+            .title('Edit My Homepage')
         ),
+
       S.listItem()
-        .title('Site Settings')
-        .id('siteSettings')
-        .child(
-          S.document()
-            .schemaType('siteSettings')
-            .documentId('siteSettings')
-        ),
-      S.listItem()
-        .title('Services Section')
+        .title('Services')
         .id('servicesSection')
+        .icon(() => '💼')
         .child(
           S.document()
             .schemaType('servicesSection')
             .documentId('servicesSection')
+            .title('My Services')
         ),
+
       S.listItem()
-        .title('Contact Section')
+        .title('Contact Information')
         .id('contactSection')
+        .icon(() => '📬')
         .child(
           S.document()
             .schemaType('contactSection')
             .documentId('contactSection')
+            .title('Contact Information')
         ),
-      // Minimum required configuration for orderable projects
-      orderableDocumentListDeskItem({type: 'project', S, context}),
+
+      S.divider(),
+
+      // --- Site-wide settings ---
+      S.listItem()
+        .title('Website Appearance')
+        .id('siteSettings')
+        .icon(() => '🎨')
+        .child(
+          S.document()
+            .schemaType('siteSettings')
+            .documentId('siteSettings')
+            .title('Website Appearance')
+        ),
     ])
